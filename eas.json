@@ -62,7 +62,7 @@
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.educatorslabs.ignitekit"
+        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
       }
     },
     "staging": {
@@ -73,7 +73,7 @@
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.educatorslabs.ignitekit"
+        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
       }
     },
     "production": {
@@ -84,7 +84,7 @@
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.educatorslabs.ignitekit"
+        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
       }
     }
   }

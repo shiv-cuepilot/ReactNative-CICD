@@ -61,6 +61,6 @@ module.exports = {
     package: 'com.shivshankartiwari.reactnativeignitekit',
   },
   ios: {
-    bundleIdentifier: 'com.educatorslabs.ignitekit',
+    bundleIdentifier: 'com.shivshankartiwari.ignitekit',
   },
 };
