@@ -51,18 +51,35 @@ project.ext.envConfigFiles = [
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 react {
+    // With flavors the debuggable variants include the flavor prefix
+    debuggableVariants = ["developmentDebug", "stagingDebug", "productionDebug"]
     autolinkLibrariesWithApp()
 }
 
 // Configuration switches
 def enableProguardInReleaseBuilds = false
-def jscFlavor = 'org.webkit:android-jsc:+'
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
     ndkVersion       rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk       rootProject.ext.compileSdkVersion
     namespace        "com.snapbiodata.app"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    packagingOptions {
+        // 16KB page alignment for native libraries (Android 15+ requirement)
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
 
     defaultConfig {
         applicationId       "com.snapbiodata.app"
@@ -80,14 +97,17 @@ android {
     // regardless of the suffixed applicationId.
     productFlavors {
         production {
+            dimension "default"
             // com.snapbiodata.app  (the real Play Store / App Store identity)
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         development {
+            dimension "default"
             applicationIdSuffix ".development"   // com.snapbiodata.app.development
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         staging {
+            dimension "default"
             applicationIdSuffix ".staging"       // com.snapbiodata.app.staging
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }

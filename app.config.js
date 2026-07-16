@@ -26,6 +26,10 @@ module.exports = {
 
   owner: 'shivtiwari',
 
+  runtimeVersion: '1.0.0',
+
+  plugins: ['expo-updates'],
+
   updates: {
     url: `https://u.expo.dev/${projectId}`,
   },
