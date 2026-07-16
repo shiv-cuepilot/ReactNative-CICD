@@ -25,7 +25,7 @@ function App(): React.JSX.Element {
 
   // Function to handle button press
   const handleLearnMorePress = async () => {
-    const url = 'https://www.educatorslabs.com/';
+    const url = 'https://snapbiodata.com/';
     // Check if the URL can be opened
     const supported = await Linking.canOpenURL(url);
     if (supported) {
