@@ -21,13 +21,13 @@ const appEnv = (process.env.APP_ENV || 'development').toLowerCase();
 
 const envConfig = {
   development: {
-    appName: 'IgniteKit Dev',
+    appName: 'SnapBiodata Dev',
   },
   staging: {
-    appName: 'IgniteKit Stag',
+    appName: 'SnapBiodata Stag',
   },
   production: {
-    appName: 'IgniteKit',
+    appName: 'SnapBiodata',
   },
 };
 
@@ -35,7 +35,7 @@ const { appName } = envConfig[appEnv] ?? envConfig.development;
 
 module.exports = {
   name: appName,
-  slug: 'reactnativeignitekit',
+  slug: 'snapbiodata',
 
   // Kept in sync with package.json — run `yarn eas:version:get` to verify
   version: pkg.version,
@@ -44,23 +44,23 @@ module.exports = {
   // 'appVersion' policy ties runtimeVersion to the native app version automatically.
   runtimeVersion: '1.0.0',
   updates: {
-    url: 'https://u.expo.dev/81e7f11f-c57a-420e-ae2a-b564c882828a',
+    url: 'https://u.expo.dev/46cb38f5-4c71-4a23-8c62-0652d34fb5d8',
   },
 
   // ─── FILL IN AFTER RUNNING `eas init` ───────────────────────────────────
   owner: 'shivtiwari',
   extra: {
     eas: {
-      projectId: '81e7f11f-c57a-420e-ae2a-b564c882828a',
+      projectId: '46cb38f5-4c71-4a23-8c62-0652d34fb5d8',
     },
     appEnv,
   },
   // ────────────────────────────────────────────────────────────────────────
 
   android: {
-    package: 'com.shivshankartiwari.reactnativeignitekit',
+    package: 'com.snapbiodata.app',
   },
   ios: {
-    bundleIdentifier: 'com.shivshankartiwari.ignitekit',
+    bundleIdentifier: 'com.snapbiodata.app',
   },
 };

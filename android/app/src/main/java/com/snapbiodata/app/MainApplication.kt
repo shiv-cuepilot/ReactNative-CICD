@@ -1,4 +1,4 @@
-package com.shivshankartiwari.reactnativeignitekit
+package com.snapbiodata.app
 import android.content.res.Configuration
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper

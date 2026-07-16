@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Config from 'react-native-config';
+import {AppUpdateBanner} from './src/components/AppUpdateBanner';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -24,7 +25,7 @@ function App(): React.JSX.Element {
 
   // Function to handle button press
   const handleLearnMorePress = async () => {
-    const url = 'https://www.educatorslabs.com/';
+    const url = 'https://snapbiodata.com/';
     // Check if the URL can be opened
     const supported = await Linking.canOpenURL(url);
     if (supported) {
@@ -41,8 +42,11 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <View style={styles.banner}>
+        <AppUpdateBanner />
+      </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome to IgniteKit!</Text>
+        <Text style={styles.title}>Welcome to SnapBiodata!</Text>
         <Text style={styles.subtitle}>Current Environment:</Text>
         <Text style={styles.apiUrl}>{apiUrl}</Text>
         <TouchableOpacity
@@ -59,6 +63,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  banner: {
+    paddingTop: 8,
   },
   content: {
     flex: 1,

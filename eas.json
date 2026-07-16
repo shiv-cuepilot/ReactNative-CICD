@@ -6,6 +6,7 @@
   "build": {
     "development": {
       "distribution": "store",
+      "channel": "development",
       "environment": "development",
       "env": {
         "ENVFILE": ".env.development",
@@ -22,6 +23,7 @@
     },
     "staging": {
       "distribution": "store",
+      "channel": "staging",
       "environment": "preview",
       "env": {
         "ENVFILE": ".env.staging",
@@ -38,6 +40,7 @@
     },
     "production": {
       "distribution": "store",
+      "channel": "production",
       "environment": "production",
       "env": {
         "ENVFILE": ".env.production",
@@ -56,35 +59,35 @@
   "submit": {
     "development": {
       "android": {
-        "applicationId": "com.shivshankartiwari.reactnativeignitekit",
+        "applicationId": "com.snapbiodata.app",
         "track": "internal",
         "releaseStatus": "draft"
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
+        "bundleIdentifier": "com.snapbiodata.app"
       }
     },
     "staging": {
       "android": {
-        "applicationId": "com.shivshankartiwari.reactnativeignitekit",
+        "applicationId": "com.snapbiodata.app",
         "track": "beta",
         "releaseStatus": "draft"
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
+        "bundleIdentifier": "com.snapbiodata.app"
       }
     },
     "production": {
       "android": {
-        "applicationId": "com.shivshankartiwari.reactnativeignitekit",
+        "applicationId": "com.snapbiodata.app",
         "track": "production",
         "releaseStatus": "completed"
       },
       "ios": {
         "ascAppId": "6761337270",
-        "bundleIdentifier": "com.shivshankartiwari.ignitekit"
+        "bundleIdentifier": "com.snapbiodata.app"
       }
     }
   }
