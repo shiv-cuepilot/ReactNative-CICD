@@ -54,7 +54,7 @@ Sequenced steps to get SnapBiodata connected to both stores and through review.
 
 ## Phase 4 — Privacy policy (required by both stores)
 
-- `[DONE]` Policy drafted: `docs/legal/privacy-policy.md` + `privacy-policy.html`.
+- `[DONE]` Single privacy page lives in the web repo (`snapbiodata/src/app/privacy/page.tsx`) → served at `https://snapbiodata.com/privacy`. Same URL used by web + app.
 - `[YOU]` Host it at a public URL. Two options:
   1. **Your domain:** publish the content at `https://snapbiodata.com/privacy`
      (already referenced in `store.config.json`).
