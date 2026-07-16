@@ -8273,39 +8273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reactnativeignitekit@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "reactnativeignitekit@workspace:."
-  dependencies:
-    "@babel/core": ^7.20.0
-    "@babel/plugin-transform-private-methods": ^7.25.9
-    "@babel/preset-env": ^7.20.0
-    "@babel/runtime": ^7.20.0
-    "@react-native-async-storage/async-storage": ^2.0.0
-    "@react-native/babel-preset": 0.75.4
-    "@react-native/eslint-config": 0.75.4
-    "@react-native/metro-config": 0.75.4
-    "@react-native/typescript-config": 0.75.4
-    "@types/jest": ^29.5.14
-    "@types/react": ^18.2.6
-    "@types/react-test-renderer": ^18.0.0
-    babel-jest: ^29.6.3
-    eslint: ^8.19.0
-    jest: ^29.7.0
-    lefthook: ^1.8.1
-    metro-react-native-babel-preset: ^0.77.0
-    prettier: 2.8.8
-    react: 18.3.1
-    react-native: 0.75.4
-    react-native-config: ^1.5.3
-    react-native-fast-image: ^8.6.3
-    react-test-renderer: 18.3.1
-    reactotron-react-native: ^5.1.9
-    ts-jest: ^29.2.5
-    typescript: 5.0.4
-  languageName: unknown
-  linkType: soft
-
 "reactotron-core-client@npm:2.9.7":
   version: 2.9.7
   resolution: "reactotron-core-client@npm:2.9.7"
@@ -8948,6 +8915,39 @@ __metadata:
   checksum: b5167a7142c1da704c0e3af85c402002b597081dd9575031a90b4f229ca5678e9a36e8a374f1814c8156a725d17008ae3bde63b92f9cfd132526379e580bec8b
   languageName: node
   linkType: hard
+
+"snapbiodata@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "snapbiodata@workspace:."
+  dependencies:
+    "@babel/core": ^7.20.0
+    "@babel/plugin-transform-private-methods": ^7.25.9
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.20.0
+    "@react-native-async-storage/async-storage": ^2.0.0
+    "@react-native/babel-preset": 0.75.4
+    "@react-native/eslint-config": 0.75.4
+    "@react-native/metro-config": 0.75.4
+    "@react-native/typescript-config": 0.75.4
+    "@types/jest": ^29.5.14
+    "@types/react": ^18.2.6
+    "@types/react-test-renderer": ^18.0.0
+    babel-jest: ^29.6.3
+    eslint: ^8.19.0
+    jest: ^29.7.0
+    lefthook: ^1.8.1
+    metro-react-native-babel-preset: ^0.77.0
+    prettier: 2.8.8
+    react: 18.3.1
+    react-native: 0.75.4
+    react-native-config: ^1.5.3
+    react-native-fast-image: ^8.6.3
+    react-test-renderer: 18.3.1
+    reactotron-react-native: ^5.1.9
+    ts-jest: ^29.2.5
+    typescript: 5.0.4
+  languageName: unknown
+  linkType: soft
 
 "socks-proxy-agent@npm:^8.0.3":
   version: 8.0.5

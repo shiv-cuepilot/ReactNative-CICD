@@ -87,3 +87,5 @@ fastlane/keys/*.json
 # 🔐 Android keystore files (highly sensitive)
 android/keystores/*.jks
 !android/keystores/your-app-upload-key.jks
+# react-native-config generated build artifact (per-build, may hold env values)
+ios/tmp.xcconfig

@@ -1,8 +1,9 @@
 {
-  "name": "reactnativeignitekit",
-  "version": "0.0.1",
+  "name": "snapbiodata",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "react-native start",
     "reset": "yarn node:clean && yarn android:clean && yarn start --reset-cache",
     "android:clean": "rm -rf android/app/.cxx android/app/build android/build android/.gradle && cd android && ./gradlew clean || true",
     "android:dev": "ENVFILE=.env.development yarn android:build:dev && yarn android:install:dev",
