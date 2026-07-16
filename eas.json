@@ -6,6 +6,7 @@
   "build": {
     "development": {
       "distribution": "store",
+      "channel": "development",
       "environment": "development",
       "env": {
         "ENVFILE": ".env.development",
@@ -22,6 +23,7 @@
     },
     "staging": {
       "distribution": "store",
+      "channel": "staging",
       "environment": "preview",
       "env": {
         "ENVFILE": ".env.staging",
@@ -38,6 +40,7 @@
     },
     "production": {
       "distribution": "store",
+      "channel": "production",
       "environment": "production",
       "env": {
         "ENVFILE": ".env.production",

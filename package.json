@@ -90,7 +90,8 @@
     "react-native": "0.75.4",
     "react-native-config": "^1.5.3",
     "react-native-fast-image": "^8.6.3",
-    "reactotron-react-native": "^5.1.9"
+    "reactotron-react-native": "^5.1.9",
+    "sp-react-native-in-app-updates": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
