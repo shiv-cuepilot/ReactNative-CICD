@@ -1,4 +1,4 @@
-appId: com.educatorslabs.ignitekit
+appId: com.snapbiodata.app
 ---
 # Launch fresh with no cached state
 - launchApp:
@@ -8,7 +8,7 @@ appId: com.educatorslabs.ignitekit
 - waitForAnimationToEnd
 
 # Verify the screen loaded correctly before capturing
-- assertVisible: "Welcome to IgniteKit!"
+- assertVisible: "Welcome to SnapBiodata!"
 
 # Screenshot 1 — Welcome screen (main store screenshot)
 - takeScreenshot: "01_welcome"
