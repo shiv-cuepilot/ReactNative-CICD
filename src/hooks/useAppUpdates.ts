@@ -22,7 +22,8 @@ export type AppUpdateStatus = {
 };
 
 export const useAppUpdates = (): AppUpdateStatus => {
-  const { isUpdateAvailable, isUpdatePending } = Updates.useUpdates();
+  const { isUpdateAvailable, isUpdatePending, isDownloading } =
+    Updates.useUpdates();
 
   const [storeUpdateAvailable, setStoreUpdateAvailable] = useState(false);
   const [latestStoreVersion, setLatestStoreVersion] = useState<string>();
@@ -30,11 +31,13 @@ export const useAppUpdates = (): AppUpdateStatus => {
 
   const lastCheckRef = useRef(0);
   const inFlightRef = useRef(false);
+  const isMountedRef = useRef(true);
+  const appStateRef = useRef<AppStateStatus>(AppState.currentState);
 
   const checkNow = useCallback(async () => {
     if (inFlightRef.current) {return;}
     inFlightRef.current = true;
-    setIsChecking(true);
+    if (isMountedRef.current) {setIsChecking(true);}
     try {
       // Kick the OTA check (updates useUpdates() reactively); tolerate failure.
       const otaCheck = Updates.isEnabled
@@ -43,35 +46,63 @@ export const useAppUpdates = (): AppUpdateStatus => {
 
       const [, store] = await Promise.all([otaCheck, checkStoreUpdate()]);
 
-      setStoreUpdateAvailable(store.updateAvailable);
-      setLatestStoreVersion(store.latestVersion);
       lastCheckRef.current = Date.now();
+      if (isMountedRef.current) {
+        setStoreUpdateAvailable(store.updateAvailable);
+        setLatestStoreVersion(store.latestVersion);
+      }
     } finally {
       inFlightRef.current = false;
-      setIsChecking(false);
+      if (isMountedRef.current) {setIsChecking(false);}
     }
   }, []);
 
   useEffect(() => {
+    isMountedRef.current = true;
     checkNow();
     const sub = AppState.addEventListener('change', (next: AppStateStatus) => {
+      // Only re-check on a real background/inactive -> active transition, not
+      // on iOS control-center/notification flickers.
+      const cameToForeground =
+        appStateRef.current.match(/inactive|background/) && next === 'active';
+      appStateRef.current = next;
       if (
-        next === 'active' &&
+        cameToForeground &&
         Date.now() - lastCheckRef.current > CHECK_THROTTLE_MS
       ) {
         checkNow();
       }
     });
-    return () => sub.remove();
+    return () => {
+      isMountedRef.current = false;
+      sub.remove();
+    };
   }, [checkNow]);
+
+  // A newer OTA exists but isn't downloaded yet: fetch it so the "Downloading…"
+  // state is truthful and advances to "ready to install" instead of spinning.
+  useEffect(() => {
+    if (
+      Updates.isEnabled &&
+      isUpdateAvailable &&
+      !isUpdatePending &&
+      !isDownloading
+    ) {
+      Updates.fetchUpdateAsync().catch(() => {});
+    }
+  }, [isUpdateAvailable, isUpdatePending, isDownloading]);
 
   const applyOta = useCallback(async () => {
     if (!Updates.isEnabled) {return;}
     try {
-      if (!isUpdatePending) {
-        await Updates.fetchUpdateAsync();
+      let ready = isUpdatePending;
+      if (!ready) {
+        const result = await Updates.fetchUpdateAsync();
+        ready = result.isNew;
       }
-      await Updates.reloadAsync();
+      if (ready) {
+        await Updates.reloadAsync();
+      }
     } catch {
       // Fire-and-forget from a press handler; a failed reload must not reject.
     }

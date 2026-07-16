@@ -1,6 +1,6 @@
 # Go-Live Runbook — App Store + Play Store
 
-Sequenced steps to get IgniteKit connected to both stores and through review.
+Sequenced steps to get SnapBiodata connected to both stores and through review.
 `[YOU]` = requires your Apple/Google/Expo accounts (cannot be automated for you).
 `[DONE]` = already present in this repo.
 
@@ -14,9 +14,9 @@ Sequenced steps to get IgniteKit connected to both stores and through review.
 ## Phase 0 — Prerequisites (accounts)
 
 - `[YOU]` **Apple Developer Program** membership ($99/yr) for the team that owns
-  bundle IDs `com.shivshankartiwari.ignitekit`.
+  bundle IDs `com.snapbiodata.app`.
 - `[YOU]` **Google Play Console** developer account ($25 one-time) for
-  `com.shivshankartiwari.reactnativeignitekit`.
+  `com.snapbiodata.app`.
 - `[YOU]` **Expo account** (`owner: shivtiwari` in `app.config.js`) + EAS CLI
   (`npm i -g eas-cli`, `eas login`).
 
@@ -28,9 +28,9 @@ Sequenced steps to get IgniteKit connected to both stores and through review.
 
 ## Phase 2 — iOS: App Store Connect
 
-- `[DONE]` `ascAppId: 6761337270` already in `eas.json` (the ASC app record exists).
+- `[YOU]` After creating the app record, capture its Apple ID and update `ascAppId` (x3) in `eas.json` + `APP_STORE_ID` in `src/constants/appUpdate.ts`.
 - `[YOU]` In App Store Connect, confirm the app record uses bundle
-  `com.shivshankartiwari.ignitekit` and matches the schemes in `eas.json`.
+  `com.snapbiodata.app` and matches the schemes in `eas.json`.
 - `[YOU]` Signing: `eas credentials --platform ios` → set up all (distribution
   cert + provisioning profile, stored on EAS).
 - `[YOU]` App Store Connect → App Privacy: fill using **Appendix A** below.
@@ -39,8 +39,8 @@ Sequenced steps to get IgniteKit connected to both stores and through review.
 
 ## Phase 3 — Android: Google Play Console
 
-- `[YOU]` Create the app in Play Console (name "IgniteKit", package
-  `com.shivshankartiwari.reactnativeignitekit`).
+- `[YOU]` Create the app in Play Console (name "SnapBiodata", package
+  `com.snapbiodata.app`).
 - `[YOU]` **First AAB must be uploaded manually** to a track once — Play blocks
   API submission until an app has a first release. Build one:
   `yarn eas:build:staging:android`, download the .aab, upload to Internal testing.
@@ -56,7 +56,7 @@ Sequenced steps to get IgniteKit connected to both stores and through review.
 
 - `[DONE]` Policy drafted: `docs/legal/privacy-policy.md` + `privacy-policy.html`.
 - `[YOU]` Host it at a public URL. Two options:
-  1. **Your domain:** publish the content at `https://educatorslabs.com/privacy`
+  1. **Your domain:** publish the content at `https://snapbiodata.com/privacy`
      (already referenced in `store.config.json`).
   2. **GitHub Pages:** enable Pages for this repo (Settings → Pages → deploy from
      `main`/`docs`), giving e.g.
@@ -125,5 +125,5 @@ iOS "App Tracking Transparency": **not required** (no cross-app tracking, no IDF
 - Placeholder metadata → `store.config.json` has real title/description/keywords.
 - Crash on launch during review → App renders; update feature guards `isEnabled`
   and swallows lookup failures (never blocks the UI).
-- Broken support/marketing URLs → verify `educatorslabs.com/support` &
-  `/ignitekit` resolve before submitting.
+- Broken support/marketing URLs → verify `snapbiodata.com` &
+  `snapbiodata.com` resolve before submitting.

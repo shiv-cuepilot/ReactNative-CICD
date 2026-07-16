@@ -78,7 +78,7 @@
     "screenshots:help": "cat docs/SCREENSHOTS.md",
     "screenshots:1:build": "xcodebuild -workspace ios/IgniteKit.xcworkspace -scheme 'IgniteKit staging' -configuration Release -sdk iphonesimulator -derivedDataPath ios/simulator-build CODE_SIGNING_ALLOWED=NO | grep -E 'error:|Build succeeded|Build FAILED'",
     "screenshots:2:capture": "bash scripts/capture-screenshots.sh",
-    "screenshots:3:upload:ios": "[ -f ./asc-api-key.json ] || (echo 'Error: asc-api-key.json not found. See docs/SCREENSHOTS.md.' && exit 1) && bundle exec fastlane run deliver api_key_path:./asc-api-key.json app_identifier:com.shivshankartiwari.ignitekit screenshots_path:./screenshots/ios skip_binary_upload:true skip_metadata:true overwrite_screenshots:true ignore_language_directory_validation:true force:true precheck_include_in_app_purchases:false",
+    "screenshots:3:upload:ios": "[ -f ./asc-api-key.json ] || (echo 'Error: asc-api-key.json not found. See docs/SCREENSHOTS.md.' && exit 1) && bundle exec fastlane run deliver api_key_path:./asc-api-key.json app_identifier:com.snapbiodata.app screenshots_path:./screenshots/ios skip_binary_upload:true skip_metadata:true overwrite_screenshots:true ignore_language_directory_validation:true force:true precheck_include_in_app_purchases:false",
     "screenshots:3:upload:android": "bundle exec fastlane run supply --skip_upload_apk --skip_upload_aab --skip_upload_metadata --sync_image_upload true",
     "screenshots:all": "yarn screenshots:1:build && yarn screenshots:2:capture && yarn screenshots:3:upload:ios"
   },

@@ -46,7 +46,7 @@ function App(): React.JSX.Element {
         <AppUpdateBanner />
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome to IgniteKit!</Text>
+        <Text style={styles.title}>Welcome to SnapBiodata!</Text>
         <Text style={styles.subtitle}>Current Environment:</Text>
         <Text style={styles.apiUrl}>{apiUrl}</Text>
         <TouchableOpacity

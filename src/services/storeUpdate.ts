@@ -1,9 +1,15 @@
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import SpInAppUpdates, {
   IAUUpdateKind,
   type StartUpdateOptions,
 } from 'sp-react-native-in-app-updates';
-import { CURRENT_APP_VERSION } from '../constants/appUpdate';
+import { CURRENT_APP_VERSION, STORE_URL } from '../constants/appUpdate';
+
+const openStoreListing = () => {
+  if (STORE_URL) {
+    Linking.openURL(STORE_URL).catch(() => {});
+  }
+};
 
 export type StoreCheckResult = {
   updateAvailable: boolean;
@@ -57,10 +63,18 @@ export const checkStoreUpdate = async (): Promise<StoreCheckResult> => {
  */
 export const startStoreUpdate = async (): Promise<void> => {
   const inAppUpdates = getInAppUpdates();
+  // Native module missing (e.g. OTA'd onto an old binary) → open the store page.
   if (!inAppUpdates) {
+    openStoreListing();
     return;
   }
   const options: StartUpdateOptions =
     Platform.OS === 'android' ? { updateType: IAUUpdateKind.IMMEDIATE } : {};
-  await inAppUpdates.startUpdate(options);
+  try {
+    await inAppUpdates.startUpdate(options);
+  } catch {
+    // If the in-app flow (Siren/Play Core) fails, fall back to the store page
+    // so the user is never left with a dead tap.
+    openStoreListing();
+  }
 };

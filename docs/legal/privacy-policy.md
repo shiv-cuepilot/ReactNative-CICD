@@ -1,12 +1,12 @@
-# Privacy Policy — IgniteKit
+# Privacy Policy — SnapBiodata
 
 **Last updated:** 16 July 2026
-**Publisher:** Educators Labs Private Limited ("we", "us", "our")
-**App:** IgniteKit (the "App")
-**Contact:** support@educatorslabs.com · https://educatorslabs.com/support
+**Publisher:** SnapBiodata ("we", "us", "our")
+**App:** SnapBiodata (the "App")
+**Contact:** support@snapbiodata.com · https://snapbiodata.com
 
 This Privacy Policy explains what information the App handles and how. We designed
-IgniteKit to collect as little as possible.
+SnapBiodata to collect as little as possible.
 
 ## 1. Information we do not collect
 
@@ -56,7 +56,7 @@ discarded or aggregated.
 
 Because we do not collect personal data tied to your identity, there is typically
 no personal data to access, correct, or delete. If you have any question about
-your privacy, contact us at support@educatorslabs.com.
+your privacy, contact us at support@snapbiodata.com.
 
 ## 7. Changes to this policy
 
@@ -65,6 +65,6 @@ updating the "Last updated" date above.
 
 ## 8. Contact
 
-Educators Labs Private Limited
-support@educatorslabs.com
-https://educatorslabs.com/support
+SnapBiodata
+support@snapbiodata.com
+https://snapbiodata.com

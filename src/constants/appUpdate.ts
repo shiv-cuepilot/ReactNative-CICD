@@ -5,7 +5,7 @@ const pkg = require('../../package.json') as { version: string };
 export const CURRENT_APP_VERSION = pkg.version;
 
 export const APP_STORE_ID = '6761337270';
-export const ANDROID_PACKAGE = 'com.shivshankartiwari.reactnativeignitekit';
+export const ANDROID_PACKAGE = 'com.snapbiodata.app';
 
 export const STORE_URL =
   Platform.select({

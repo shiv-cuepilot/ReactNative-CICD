@@ -98,10 +98,10 @@ android {
     ndkVersion       rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk       rootProject.ext.compileSdkVersion
-    namespace        "com.shivshankartiwari.reactnativeignitekit"
+    namespace        "com.snapbiodata.app"
 
     defaultConfig {
-        applicationId       "com.shivshankartiwari.reactnativeignitekit"
+        applicationId       "com.snapbiodata.app"
         minSdkVersion       rootProject.ext.minSdkVersion
         targetSdkVersion    rootProject.ext.targetSdkVersion
         versionCode         22
@@ -117,16 +117,16 @@ android {
 
     productFlavors {
         development {
-            applicationId "com.shivshankartiwari.reactnativeignitekit"
-            resValue "string", "build_config_package", "com.shivshankartiwari.reactnativeignitekit"
+            applicationId "com.snapbiodata.app"
+            resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         staging {
-            applicationId "com.shivshankartiwari.reactnativeignitekit"
-            resValue "string", "build_config_package", "com.shivshankartiwari.reactnativeignitekit"
+            applicationId "com.snapbiodata.app"
+            resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         production {
-            applicationId "com.shivshankartiwari.reactnativeignitekit"
-            resValue "string", "build_config_package", "com.shivshankartiwari.reactnativeignitekit"
+            applicationId "com.snapbiodata.app"
+            resValue "string", "build_config_package", "com.snapbiodata.app"
         }
     }
 
