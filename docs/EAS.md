@@ -126,7 +126,7 @@
 
   VERSION CHECK
   ─────────────
-  yarn eas:version              show versions: package.json · gradle · pbxproj
+  yarn eas:version:get          show versions: package.json · gradle · pbxproj
   yarn eas:version:check        exit 1 if any mismatch (used before builds)
 
   BUILD

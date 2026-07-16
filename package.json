@@ -43,7 +43,7 @@
     "ios:prod:release": "yarn ios:clean && yarn ios:bundle:assets && ENVFILE=.env.production react-native run-ios --scheme \"IgniteKit production\" --configuration Release",
     "eas": "eas",
     "eas:help": "cat docs/EAS.md",
-    "eas:version": "node scripts/eas-version.js get",
+    "eas:version:get": "node scripts/eas-version.js get",
     "eas:version:check": "node scripts/eas-version.js check",
     "eas:build:dev": "yarn eas:version:check && eas build --profile development --platform all",
     "eas:build:dev:ios": "yarn eas:version:check && eas build --profile development --platform ios",
