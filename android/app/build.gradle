@@ -74,14 +74,21 @@ android {
 
     flavorDimensions "default"
 
+    // Each flavor gets its own applicationId so development / staging / production
+    // can be installed side-by-side on one device. build_config_package stays the
+    // namespace (com.snapbiodata.app) — that's where BuildConfig is generated,
+    // regardless of the suffixed applicationId.
     productFlavors {
         production {
+            // com.snapbiodata.app  (the real Play Store / App Store identity)
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         development {
+            applicationIdSuffix ".development"   // com.snapbiodata.app.development
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }
         staging {
+            applicationIdSuffix ".staging"       // com.snapbiodata.app.staging
             resValue "string", "build_config_package", "com.snapbiodata.app"
         }
     }
