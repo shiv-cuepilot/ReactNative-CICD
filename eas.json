@@ -60,6 +60,7 @@
         "track": "production"
       },
       "ios": {
+        "ascAppId": "6791839989",
         "bundleIdentifier": "com.snapbiodata.app"
       }
     }

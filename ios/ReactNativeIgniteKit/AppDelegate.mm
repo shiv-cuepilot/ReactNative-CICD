@@ -6,12 +6,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Initialize expo-updates before RN loads: UpdatesModule reads
+  // AppController.sharedInstance during JS startup and hits a precondition crash
+  // if the controller was never initialized. Called via runtime to avoid a
+  // bridging header (AppController is @objc(EXUpdatesAppController)).
+  Class updatesController = NSClassFromString(@"EXUpdatesAppController");
+  if (updatesController && [updatesController respondsToSelector:@selector(initializeWithoutStarting)]) {
+    [updatesController performSelector:@selector(initializeWithoutStarting)];
+  }
+
   self.moduleName = @"SnapBiodata";
-  // You can add your custom initial props in the dictionary below.
-  // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+  return [self bundleURL];
 }
 
 - (NSURL *)bundleURL

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -6,9 +6,10 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Linking,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
+import { WebView } from 'react-native-webview';
 import Config from 'react-native-config';
 
 // SnapBiodata brand palette (matches the web app: warm maroon + gold wedding theme).
@@ -26,18 +27,52 @@ const C = {
 
 const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'serif' });
 
+const CREATE_URL = 'https://snapbiodata.com/create';
+const TEMPLATES_URL = 'https://snapbiodata.com';
+
 function App(): React.JSX.Element {
+  const [webUrl, setWebUrl] = useState<string | null>(null);
+  const [webLoading, setWebLoading] = useState(false);
   const apiUrl = Config.API_URL;
 
-  const open = (url: string) => {
-    Linking.openURL(url).catch(() => {});
-  };
+  if (webUrl) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <StatusBar barStyle="dark-content" backgroundColor={C.canvas} />
+        <View style={styles.webHeader}>
+          <TouchableOpacity
+            onPress={() => setWebUrl(null)}
+            style={styles.backBtn}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            accessibilityRole="button"
+            accessibilityLabel="Back to home">
+            <Text style={styles.backText}>‹ Back</Text>
+          </TouchableOpacity>
+          <Text style={styles.webTitle}>SnapBiodata</Text>
+          <View style={styles.backBtn} />
+        </View>
+        <View style={styles.webBody}>
+          <WebView
+            source={{ uri: webUrl }}
+            onLoadStart={() => setWebLoading(true)}
+            onLoadEnd={() => setWebLoading(false)}
+            allowsBackForwardNavigationGestures
+            originWhitelist={['https://*']}
+          />
+          {webLoading ? (
+            <View style={styles.webLoader} pointerEvents="none">
+              <ActivityIndicator size="large" color={C.maroon} />
+            </View>
+          ) : null}
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" backgroundColor={C.canvas} />
 
-      {/* Brand */}
       <View style={styles.brandRow}>
         <View style={styles.badge}>
           <Text style={styles.badgeGlyph}>♥</Text>
@@ -45,7 +80,6 @@ function App(): React.JSX.Element {
         <Text style={styles.wordmark}>SnapBiodata</Text>
       </View>
 
-      {/* Hero */}
       <View style={styles.hero}>
         <Text style={styles.flourish}>✦ ✦ ✦</Text>
         <Text style={styles.title}>
@@ -67,19 +101,20 @@ function App(): React.JSX.Element {
         <TouchableOpacity
           activeOpacity={0.85}
           style={styles.cta}
-          onPress={() => open('https://snapbiodata.com/create')}>
+          accessibilityRole="button"
+          onPress={() => setWebUrl(CREATE_URL)}>
           <Text style={styles.ctaText}>Create biodata</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.secondary}
-          onPress={() => open('https://snapbiodata.com')}>
+          accessibilityRole="button"
+          onPress={() => setWebUrl(TEMPLATES_URL)}>
           <Text style={styles.secondaryText}>Browse templates</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerBrand}>snapbiodata.com</Text>
         {apiUrl ? (
@@ -196,6 +231,33 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
   },
   envText: { color: C.muted, fontSize: 11, fontStyle: 'italic' },
+
+  webHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+  },
+  backBtn: { minWidth: 64 },
+  backText: { color: C.maroon, fontSize: 17, fontWeight: '600' },
+  webTitle: {
+    fontFamily: serif,
+    fontSize: 17,
+    fontWeight: '700',
+    color: C.ink,
+  },
+  webBody: {
+    flex: 1,
+    marginHorizontal: -24,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: C.line,
+  },
+  webLoader: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: C.canvas,
+  },
 });
 
 export default App;
