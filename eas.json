@@ -44,7 +44,7 @@
         "track": "internal"
       },
       "ios": {
-        "ascAppId": "YOUR_APP_STORE_APP_ID"
+        "bundleIdentifier": "com.snapbiodata.app.development"
       }
     },
     "staging": {
@@ -52,7 +52,7 @@
         "track": "alpha"
       },
       "ios": {
-        "ascAppId": "YOUR_APP_STORE_APP_ID"
+        "bundleIdentifier": "com.snapbiodata.app.staging"
       }
     },
     "production": {
@@ -60,7 +60,7 @@
         "track": "production"
       },
       "ios": {
-        "ascAppId": "YOUR_APP_STORE_APP_ID"
+        "bundleIdentifier": "com.snapbiodata.app"
       }
     }
   }
