@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   Platform,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { WebView, WebViewNavigation } from 'react-native-webview';
 import Config from 'react-native-config';
 
 // SnapBiodata brand palette (matches the web app: warm maroon + gold wedding theme).
@@ -33,7 +34,46 @@ const TEMPLATES_URL = 'https://snapbiodata.com';
 function App(): React.JSX.Element {
   const [webUrl, setWebUrl] = useState<string | null>(null);
   const [webLoading, setWebLoading] = useState(false);
+  const [webError, setWebError] = useState(false);
+  const webViewRef = useRef<WebView>(null);
+  const canGoBackRef = useRef(false);
   const apiUrl = Config.API_URL;
+
+  const closeWeb = useCallback(() => {
+    setWebUrl(null);
+    setWebError(false);
+    setWebLoading(false);
+    canGoBackRef.current = false;
+  }, []);
+
+  const openWeb = useCallback((url: string) => {
+    setWebError(false);
+    setWebLoading(true);
+    setWebUrl(url);
+  }, []);
+
+  const retryWeb = useCallback(() => {
+    setWebError(false);
+    setWebLoading(true);
+    webViewRef.current?.reload();
+  }, []);
+
+  // Android hardware back: navigate back within the WebView if possible,
+  // otherwise close it and return to the home screen (never exit the app here).
+  useEffect(() => {
+    if (!webUrl) {
+      return;
+    }
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (!webError && canGoBackRef.current) {
+        webViewRef.current?.goBack();
+      } else {
+        closeWeb();
+      }
+      return true;
+    });
+    return () => sub.remove();
+  }, [webUrl, webError, closeWeb]);
 
   if (webUrl) {
     return (
@@ -41,7 +81,7 @@ function App(): React.JSX.Element {
         <StatusBar barStyle="dark-content" backgroundColor={C.canvas} />
         <View style={styles.webHeader}>
           <TouchableOpacity
-            onPress={() => setWebUrl(null)}
+            onPress={closeWeb}
             style={styles.backBtn}
             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             accessibilityRole="button"
@@ -53,15 +93,38 @@ function App(): React.JSX.Element {
         </View>
         <View style={styles.webBody}>
           <WebView
+            ref={webViewRef}
             source={{ uri: webUrl }}
             onLoadStart={() => setWebLoading(true)}
             onLoadEnd={() => setWebLoading(false)}
+            onNavigationStateChange={(nav: WebViewNavigation) => {
+              canGoBackRef.current = nav.canGoBack;
+            }}
+            onError={() => {
+              setWebError(true);
+              setWebLoading(false);
+            }}
             allowsBackForwardNavigationGestures
             originWhitelist={['https://*']}
           />
-          {webLoading ? (
+          {webLoading && !webError ? (
             <View style={styles.webLoader} pointerEvents="none">
               <ActivityIndicator size="large" color={C.maroon} />
+            </View>
+          ) : null}
+          {webError ? (
+            <View style={styles.webErrorWrap}>
+              <Text style={styles.webErrorTitle}>Couldn't load the page</Text>
+              <Text style={styles.webErrorMsg}>
+                Check your internet connection and try again.
+              </Text>
+              <TouchableOpacity
+                style={styles.retryBtn}
+                onPress={retryWeb}
+                accessibilityRole="button"
+                accessibilityLabel="Retry">
+                <Text style={styles.retryText}>Retry</Text>
+              </TouchableOpacity>
             </View>
           ) : null}
         </View>
@@ -102,7 +165,7 @@ function App(): React.JSX.Element {
           activeOpacity={0.85}
           style={styles.cta}
           accessibilityRole="button"
-          onPress={() => setWebUrl(CREATE_URL)}>
+          onPress={() => openWeb(CREATE_URL)}>
           <Text style={styles.ctaText}>Create biodata</Text>
         </TouchableOpacity>
 
@@ -110,7 +173,7 @@ function App(): React.JSX.Element {
           activeOpacity={0.6}
           style={styles.secondary}
           accessibilityRole="button"
-          onPress={() => setWebUrl(TEMPLATES_URL)}>
+          onPress={() => openWeb(TEMPLATES_URL)}>
           <Text style={styles.secondaryText}>Browse templates</Text>
         </TouchableOpacity>
       </View>
@@ -258,6 +321,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: C.canvas,
   },
+  webErrorWrap: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: C.canvas,
+    paddingHorizontal: 32,
+  },
+  webErrorTitle: {
+    fontFamily: serif,
+    fontSize: 20,
+    fontWeight: '700',
+    color: C.ink,
+    textAlign: 'center',
+  },
+  webErrorMsg: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: C.muted,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  retryBtn: {
+    marginTop: 22,
+    backgroundColor: C.maroon,
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+  },
+  retryText: { color: '#fff', fontSize: 15.5, fontWeight: '700' },
 });
 
 export default App;
